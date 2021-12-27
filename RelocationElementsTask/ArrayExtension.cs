@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace RelocationElementsTask
 {
@@ -16,7 +16,38 @@ namespace RelocationElementsTask
         /// <exception cref="ArgumentException">Thrown when source array is empty.</exception>
         public static void MoveToTail(int[] source, int value)
         {
-            throw new NotImplementedException("You need to implement this function.");
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            if (source.Length == 0)
+            {
+                throw new ArgumentException("source cannot be empty.");
+            }
+
+            int count = 0;
+            int[] result = new int[source.Length];
+           
+            for (int i = 0, j = 0; i < source.Length; i++)
+            {
+                if (source[i] != value)
+                {
+                    result[j] = source[i];
+                    j++;
+                }
+                else 
+                {
+                    count++;
+                }
+            }
+
+            for (int i = 1; i <= count; i++)
+            {
+                result[result.Length - i] = value;
+            }
+
+            result.CopyTo(source, 0);
         }
     }
 }
